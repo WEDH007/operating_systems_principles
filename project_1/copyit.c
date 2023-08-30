@@ -5,6 +5,7 @@
 #include <errno.h>
 #include <string.h>
 #include <signal.h>
+#include <time.h>  // Added for timing
 
 void display_message(int s) {
     printf("copyit: still copying...\n");
@@ -36,6 +37,9 @@ int main(int argc, char *argv[]) {
 
     char buffer[4096];
     ssize_t bytes_read, bytes_written, total_bytes = 0;
+
+    // Record the start time
+    clock_t start_time = clock();
 
     while (1) {
         do {
@@ -70,8 +74,18 @@ int main(int argc, char *argv[]) {
         }
     }
 
+    // Record the end time
+    clock_t end_time = clock();
+
+    // Compute the elapsed time in seconds
+    double elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+
     close(src);
     close(dest);
     printf("copyit: Copied %lld bytes from file %s to %s.\n", (long long)total_bytes, argv[1], argv[2]);
+    
+    // Print the elapsed time
+    printf("copyit: Time taken: %.2f seconds\n", elapsed_time);
+
     return 0;
 }

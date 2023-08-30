@@ -1,5 +1,5 @@
 copyit: copyit.c
-	cc copyit.c -o -Wall copyit
+	cc -Wall copyit.c -o copyit
 
 clean:
 	rm -f copyit copyit.o core *~
