@@ -3,4 +3,4 @@ copyit: copyit.c copyit_extracredit.c
 	cc -Wall copyit_extracredit.c -o copyit_extracredit
 
 clean:
-	rm -f copyit copyit.o core *~
+	rm -f copyit copyit.o copyit_extracredit copyit_extracredit.o core *~
