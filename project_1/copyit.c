@@ -29,10 +29,18 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
 
-    int dest = open(argv[2], O_WRONLY | O_CREAT, 0644);
+    // Check if the source file has read permissions
+    if (access(argv[1], R_OK) != 0) {
+        printf("copyit: Source file %s does not have read permissions.\n", argv[1]);
+        close(src);
+        exit(1);
+    }
+
+    // Use creat to open the destination file with specific permissions
+    int dest = creat(argv[2], 0666);  // Readable and writeable by everybody
     if (dest < 0) {
-        printf("copyit: Couldn't open or create target file %s: %s\n", argv[2], strerror(errno));
-        close(src);  // Ensure the source file is closed if we fail to open the destination file
+        printf("copyit: Couldn't create target file %s: %s\n", argv[2], strerror(errno));
+        close(src);  // Ensure the source file is closed if we fail to create the destination file
         exit(1);
     }
 
