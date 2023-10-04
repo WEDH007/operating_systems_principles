@@ -12,76 +12,107 @@
 char input[MAX_INPUT_SIZE];
 char *words[MAX_WORDS];
 
+/**
+ * Read input from the user and tokenize it.
+ */
 void read_input() {
     printf("myshell> ");
     fflush(stdout);
+
+    // Check for EOF or reading error
     if (!fgets(input, MAX_INPUT_SIZE, stdin)) {
-        exit(0); // Exit on EOF
+        perror("myshell: Error reading input");
+        exit(EXIT_FAILURE);
     }
+
     char *token = strtok(input, " \t\n");
     int i = 0;
-    while (token) {
+    while (token && i < MAX_WORDS - 1) {
         words[i++] = token;
         token = strtok(NULL, " \t\n");
     }
     words[i] = NULL;
 }
 
+/**
+ * Execute the user's command.
+ */
 void execute_command() {
     pid_t pid, wpid;
     int status;
 
-    if (strcmp(words[0], "start") == 0) {
+    if (!words[0]) {
+        // Empty command
+        return;
+    } else if (strcmp(words[0], "start") == 0) {
+        if (!words[1]) {
+            printf("myshell: 'start' requires a program to execute.\n");
+            return;
+        }
+
         if ((pid = fork()) == 0) {
             execvp(words[1], &words[1]);
-            perror("myshell");
+            perror("myshell: Error executing command");
             exit(EXIT_FAILURE);
-        } else if (pid > 0) {
-            printf("myshell: process %d started\n", pid);
+        } else if (pid < 0) {
+            perror("myshell: Error starting process");
         } else {
-            perror("myshell");
+            printf("myshell: process %d started\n", pid);
         }
     } else if (strcmp(words[0], "wait") == 0) {
         wpid = wait(&status);
+        if (wpid < 0) {
+            perror("myshell: Error waiting for process");
+            return;
+        }
         if (WIFEXITED(status)) {
             printf("myshell: process %d exited normally with status %d\n", wpid, WEXITSTATUS(status));
         } else if (WIFSIGNALED(status)) {
             printf("myshell: process %d exited abnormally with signal %d: %s\n", wpid, WTERMSIG(status), strsignal(WTERMSIG(status)));
-        } else {
-            printf("myshell: no processes left\n");
         }
     } else if (strcmp(words[0], "run") == 0) {
+        if (!words[1]) {
+            printf("myshell: 'run' requires a program to execute.\n");
+            return;
+        }
+
         if ((pid = fork()) == 0) {
             execvp(words[1], &words[1]);
-            perror("myshell");
+            perror("myshell: Error executing command");
             exit(EXIT_FAILURE);
-        } else if (pid > 0) {
+        } else if (pid < 0) {
+            perror("myshell: Error starting process");
+        } else {
             wpid = waitpid(pid, &status, 0);
+            if (wpid < 0) {
+                perror("myshell: Error waiting for process");
+                return;
+            }
             if (WIFEXITED(status)) {
                 printf("myshell: process %d exited normally with status %d\n", wpid, WEXITSTATUS(status));
             } else if (WIFSIGNALED(status)) {
                 printf("myshell: process %d exited abnormally with signal %d: %s\n", wpid, WTERMSIG(status), strsignal(WTERMSIG(status)));
             }
-        } else {
-            perror("myshell");
         }
-    } else if (strcmp(words[0], "kill") == 0) {
-        if (kill(atoi(words[1]), SIGKILL) == 0) {
-            printf("myshell: process %s killed\n", words[1]);
-        } else {
-            perror("myshell");
+    } else if (strcmp(words[0], "kill") == 0 || strcmp(words[0], "stop") == 0 || strcmp(words[0], "continue") == 0) {
+        if (!words[1]) {
+            printf("myshell: Command '%s' requires a process ID.\n", words[0]);
+            return;
         }
-    } else if (strcmp(words[0], "stop") == 0) {
-        if (kill(atoi(words[1]), SIGSTOP) == 0) {
-            printf("myshell: process %s stopped\n", words[1]);
+        int sig;
+        if (strcmp(words[0], "kill") == 0) {
+            sig = SIGKILL;
+        } else if (strcmp(words[0], "stop") == 0) {
+            sig = SIGSTOP;
         } else {
-            perror("myshell");
+            sig = SIGCONT;
         }
-    } else if (strcmp(words[0], "continue") == 0) {
-        if (kill(atoi(words[1]), SIGCONT) == 0) {
-            printf("myshell: process %s continued\n", words[1]);
+
+        pid_t target_pid = atoi(words[1]);
+        if (kill(target_pid, sig) < 0) {
+            perror("myshell: Error sending signal to process");
         } else {
-            perror("myshell");
+            printf("myshell: signal %d sent to process %d\n", sig, target_pid);
         }
     } else if (strcmp(words[0], "exit") == 0 || strcmp(words[0], "quit") == 0) {
         exit(0);
