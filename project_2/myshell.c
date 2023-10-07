@@ -20,10 +20,14 @@ void read_input() {
     printf("myshell> ");
     fflush(stdout);
 
-    // Check for EOF or reading error
     if (!fgets(input, MAX_INPUT_SIZE, stdin)) {
-        perror("myshell: Error reading input");
-        exit(EXIT_FAILURE);
+        if (feof(stdin)) {
+            printf("myshell: End of input detected. Exiting.\n");
+            exit(EXIT_SUCCESS);
+        } else {
+            perror("myshell: Error reading input");
+            exit(EXIT_FAILURE);
+        }
     }
 
     char *token = strtok(input, " \t\n");
