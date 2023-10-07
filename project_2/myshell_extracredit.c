@@ -65,6 +65,7 @@ void execute_command() {
                         perror("myshell: Error opening input file");
                         exit(EXIT_FAILURE);
                     }
+                    printf("Input file opened with fd: %d\n", in_fd);  // Debug statement
                     dup2(in_fd, STDIN_FILENO);
                     close(in_fd);
                     words[i] = NULL;
@@ -77,6 +78,7 @@ void execute_command() {
                         perror("myshell: Error opening output file");
                         exit(EXIT_FAILURE);
                     }
+                    printf("Output file opened with fd: %d\n", out_fd);  // Debug statement
                     dup2(out_fd, STDOUT_FILENO);
                     close(out_fd);
                     words[i] = NULL;
@@ -86,6 +88,10 @@ void execute_command() {
 
             execvp(program, &words[j]);
             perror("myshell: Error executing command");
+            printf("Command: %s\n", program);  // Debug statement
+            for (int k = j; words[k]; k++) {
+                printf("Arg %d: %s\n", k-j, words[k]);  // Debug statement
+            }
             exit(EXIT_FAILURE);
         } else if (pid < 0) {
             perror("myshell: Error starting process");
