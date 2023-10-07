@@ -5,6 +5,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <signal.h>
+#include <errno.h>
 
 #define MAX_INPUT_SIZE 4096
 #define MAX_WORDS 100
@@ -61,7 +62,10 @@ void execute_command() {
         }
     } else if (strcmp(words[0], "wait") == 0) {
         wpid = wait(&status);
-        if (wpid < 0) {
+        if (wpid == -1 && errno == ECHILD) {
+            printf("myshell: no processes left\n");
+            return;
+        } else if (wpid < 0) {
             perror("myshell: Error waiting for process");
             return;
         }
@@ -100,19 +104,23 @@ void execute_command() {
             return;
         }
         int sig;
+        char *action;
         if (strcmp(words[0], "kill") == 0) {
             sig = SIGKILL;
+            action = "killed";
         } else if (strcmp(words[0], "stop") == 0) {
             sig = SIGSTOP;
+            action = "stopped";
         } else {
             sig = SIGCONT;
+            action = "continued";
         }
 
         pid_t target_pid = atoi(words[1]);
         if (kill(target_pid, sig) < 0) {
             perror("myshell: Error sending signal to process");
         } else {
-            printf("myshell: signal %d sent to process %d\n", sig, target_pid);
+            printf("myshell: process %d %s\n", target_pid, action);
         }
     } else if (strcmp(words[0], "exit") == 0 || strcmp(words[0], "quit") == 0) {
         exit(0);
