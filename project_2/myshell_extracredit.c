@@ -44,7 +44,15 @@ void execute_command() {
     if (!words[0]) {
         return;
     } else if (strcmp(words[0], "start") == 0) {
-        if (!words[1]) {
+        char *program = NULL;
+        int j;
+        for (j = 1; j < MAX_WORDS && words[j]; j++) {
+            if (words[j]) {
+                program = words[j];
+                break;
+            }
+        }
+        if (!program) {
             printf("myshell: 'start' requires a program to execute.\n");
             return;
         }
@@ -60,6 +68,7 @@ void execute_command() {
                     dup2(in_fd, STDIN_FILENO);
                     close(in_fd);
                     words[i] = NULL;
+                    words[i+1] = NULL;
                 }
 
                 if (strcmp(words[i], ">") == 0 && words[i + 1]) {
@@ -71,10 +80,11 @@ void execute_command() {
                     dup2(out_fd, STDOUT_FILENO);
                     close(out_fd);
                     words[i] = NULL;
+                    words[i+1] = NULL;
                 }
             }
 
-            execvp(words[1], &words[1]);
+            execvp(program, &words[j]);
             perror("myshell: Error executing command");
             exit(EXIT_FAILURE);
         } else if (pid < 0) {
