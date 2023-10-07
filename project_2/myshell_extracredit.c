@@ -67,7 +67,10 @@ void execute_command() {
                         exit(EXIT_FAILURE);
                     }
                     printf("Input file opened with fd: %d\n", in_fd);
-                    dup2(in_fd, STDIN_FILENO);
+                    if (dup2(in_fd, STDIN_FILENO) == -1) {
+                        perror("myshell: Error redirecting input");
+                        exit(EXIT_FAILURE);
+                    }
                     close(in_fd);
                     words[i] = NULL;
                     words[i+1] = NULL;
@@ -81,7 +84,10 @@ void execute_command() {
                         exit(EXIT_FAILURE);
                     }
                     printf("Output file opened with fd: %d\n", out_fd);
-                    dup2(out_fd, STDOUT_FILENO);
+                    if (dup2(out_fd, STDOUT_FILENO) == -1) {
+                        perror("myshell: Error redirecting output");
+                        exit(EXIT_FAILURE);
+                    }
                     close(out_fd);
                     words[i] = NULL;
                     words[i+1] = NULL;
