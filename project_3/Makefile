@@ -1,5 +1,5 @@
+mandel: mandel.c
+	gcc -Wall mandel.c -o mandel -lpthread
 
-mandel: mandel.c 
-	cc -Wall mandel.c -o mandel
-
-clean: rm -f mandel mandel.o core *~
+clean: 
+	rm -f mandel mandel.o core *~
