@@ -6,6 +6,7 @@
 #include <errno.h>
 #include <string.h>
 #include <pthread.h>
+#include <time.h>
 
 // Define a structure to pass data to threads
 typedef struct {
@@ -70,6 +71,8 @@ void compute_image( struct bitmap *bm, double xmin, double xmax, double ymin, do
 
 int main( int argc, char *argv[] )
 {
+    struct timespec start, end;
+    clock_gettime(CLOCK_MONOTONIC, &start);
     char c;
 
     // These are the default configuration values used
@@ -120,11 +123,12 @@ int main( int argc, char *argv[] )
         }
     }
 
-    // Display the configuration of the image.
-    printf("mandel: x=%lf y=%lf scale=%lf max=%d outfile=%s threads=%d\n",xcenter,ycenter,scale,max,outfile,num_threads);
+    // // Display the configuration of the image.
+    // printf("mandel: x=%lf y=%lf scale=%lf max=%d outfile=%s threads=%d\n",xcenter,ycenter,scale,max,outfile,num_threads);
 
     // Create a bitmap of the appropriate size.
     struct bitmap *bm = bitmap_create(image_width,image_height);
+
 
     // Fill it with a dark blue, for debugging
     bitmap_reset(bm,MAKE_RGBA(0,0,255,0));
@@ -154,6 +158,10 @@ int main( int argc, char *argv[] )
             pthread_join(threads[i], NULL);
         }
     }
+
+    clock_gettime(CLOCK_MONOTONIC, &end);
+    double elapsed = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
+    printf("mandel: x=%lf y=%lf scale=%lf max=%d outfile=%s threads=%d Time taken: %f seconds\n",xcenter,ycenter,scale,max,outfile,num_threads, elapsed);
 
     // Save the image in the stated file.
     if(!bitmap_save(bm,outfile)) {
