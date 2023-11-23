@@ -1,0 +1,181 @@
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 50 rand 50 ll
+Total number of page faults: 36
+Number of empty frames: 14
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 50 rand 100 ll
+Total number of page faults: 69
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 50 rand 150 ll
+Total number of page faults: 91
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 50 rand 200 ll
+Total number of page faults: 118
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 50 rand 250 ll
+Total number of page faults: 150
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 50 rand 50 hl 
+Total number of page faults: 20
+Number of empty frames: 30
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 50 rand 100 hl
+Total number of page faults: 19
+Number of empty frames: 31
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 50 rand 150 hl
+Total number of page faults: 27
+Number of empty frames: 23
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 50 rand 200 hl
+Total number of page faults: 25
+Number of empty frames: 25
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 50 rand 250 hl
+Total number of page faults: 81
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 10 rand 50 ll 
+Total number of page faults: 45
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 10 rand 100 ll
+Total number of page faults: 88
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 10 rand 150 ll
+Total number of page faults: 141
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 10 rand 200 ll
+Total number of page faults: 183
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 10 rand 250 ll
+Total number of page faults: 225
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 10 rand 50 hl 
+Total number of page faults: 27
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 10 rand 100 hl
+Total number of page faults: 42
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 10 rand 150 hl
+Total number of page faults: 57
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 10 rand 200 hl
+Total number of page faults: 76
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 10 rand 250 hl
+Total number of page faults: 115
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 50 fifo 50 ll 
+Total number of page faults: 46
+Number of empty frames: 4
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 50 fifo 100 ll
+Total number of page faults: 66
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 50 fifo 150 ll
+Total number of page faults: 90
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 50 fifo 200 ll
+Total number of page faults: 116
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 50 fifo 250 ll
+Total number of page faults: 131
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 50 fifo 50 hl 
+Total number of page faults: 13
+Number of empty frames: 37
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 50 fifo 100 hl
+Total number of page faults: 32
+Number of empty frames: 18
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 50 fifo 150 hl
+Total number of page faults: 28
+Number of empty frames: 22
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 50 fifo 200 hl
+Total number of page faults: 38
+Number of empty frames: 12
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 50 fifo 250 hl
+Total number of page faults: 162
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 10 fifo 50 ll
+Total number of page faults: 48
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 10 fifo 100 ll
+Total number of page faults: 91
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 10 fifo 150 ll
+Total number of page faults: 138
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 10 fifo 200 ll
+Total number of page faults: 184
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 10 fifo 250 ll
+Total number of page faults: 230
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 10 fifo 50 hl 
+Total number of page faults: 25
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 10 fifo 100 hl
+Total number of page faults: 78
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 10 fifo 150 hl
+Total number of page faults: 142
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 10 fifo 200 hl
+Total number of page faults: 113
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 10 fifo 250 hl
+Total number of page faults: 171
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 50 lru 50 ll
+Total number of page faults: 41
+Number of empty frames: 9
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 50 lru 100 ll
+Total number of page faults: 69
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 50 lru 150 ll
+Total number of page faults: 97
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 50 lru 200 ll
+Total number of page faults: 115
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 50 lru 250 ll
+Total number of page faults: 136
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 50 lru 50 hl  
+Total number of page faults: 20
+Number of empty frames: 30
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 50 lru 100 hl
+Total number of page faults: 21
+Number of empty frames: 29
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 50 lru 150 hl
+Total number of page faults: 31
+Number of empty frames: 19
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 50 lru 200 hl
+Total number of page faults: 27
+Number of empty frames: 23
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 50 lru 250 hl
+Total number of page faults: 41
+Number of empty frames: 9
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 10 lru 50 ll
+Total number of page faults: 45
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 10 lru 100 ll
+Total number of page faults: 92
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 10 lru 150 ll
+Total number of page faults: 138
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 10 lru 200 ll
+Total number of page faults: 172
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 10 lru 250 ll
+Total number of page faults: 221
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 10 lru 50 hl 
+Total number of page faults: 26
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 10 lru 100 hl
+Total number of page faults: 30
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 10 lru 150 hl
+Total number of page faults: 57
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 10 lru 200 hl
+Total number of page faults: 132
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % ./virtmem 100 10 lru 250 hl
+Total number of page faults: 211
+Number of empty frames: 0
+williamduran@Williams-MacBook-Pro project_4 % 
